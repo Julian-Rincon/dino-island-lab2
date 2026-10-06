@@ -1,7 +1,7 @@
 # Laboratorio II — Modelos de lenguaje a nivel de caracteres con RNN
 
 **Procesamiento de Lenguaje Natural — 2026 S02 — Universidad Sergio Arboleda**<br>
-Estudiante: Julián Rincón
+Integrantes: Julián Rincón, Andrés Castro, Juan Hurtado, Miguel Flechas y Paula Caballero
 
 ## Entregables
 

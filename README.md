@@ -6,6 +6,14 @@ Aplicación que crea un dinosaurio ficticio en cuatro etapas encadenadas:
 Modelo de caracteres (GRU) → Nombre → Ollama (SageMaker) → Identidad → aMUSEd → Imagen → Chat
 ```
 
+## Integrantes
+
+- Julián Rincón
+- Andrés Castro
+- Juan Hurtado
+- Miguel Flechas
+- Paula Caballero
+
 **Sitio:** https://zk6dst5eom6dhbjfcivxejcpn40iakbw.lambda-url.us-east-1.on.aws/
 
 > El sitio necesita que el notebook de SageMaker `ollama` esté encendido (ahí corren
