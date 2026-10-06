@@ -133,7 +133,8 @@ pantanosas y caza reptiles y mamíferos acuáticos. Completa en `2_ollama_sagema
 ## 3. Imagen
 
 - Modelo: **`amused/amused-512`** (aMUSEd, 512×512, 12 pasos, guidance 10, semilla 7).
-- `3_imagen/colab_imagen.ipynb`: versión Colab con GPU T4 (fp16).
+- `3_imagen/colab_imagen.ipynb`: versión Colab con GPU (fp16). Quedó ejecutado con salidas en un
+  entorno equivalente con GPU (RTX 4060, CUDA): **1,6 s por imagen** → `3_imagen/limedsaurus_gpu_local.png`.
 - `3_imagen/servidor_imagen.py`: el mismo código como API (`POST /generar`). En la app desplegada corre
   en el notebook de SageMaker en CPU (~40 s por imagen; ~100 s la primera, mientras carga el modelo), así la app no depende de tener Colab abierto.
 - Prompt = `"<Nombre>, a dinosaur. " + prompt_imagen` (rasgos de Ollama), corto como pide la guía.
@@ -190,6 +191,18 @@ aws configure          # credenciales del Learner Lab (nunca en el repo)
 ```
 
 ---
+
+## Pruebas
+
+`pruebas/` verifica cada punto de la guía y el contrato de cada ruta contra el sitio desplegado
+(incluye un navegador real con Playwright que usa el botón **Nuevo dinosaurio**):
+
+```bash
+pip install pytest playwright boto3 && python -m playwright install chromium
+cd pruebas && python -m pytest -v          # ~12 min (Ollama en CPU)
+```
+
+Resultado de la última corrida y capturas: `pruebas/REPORTE.md`, `pruebas/capturas/`.
 
 ## Seguridad
 - El repositorio no contiene credenciales, claves ni tokens; AWS se configura con `aws configure`.

@@ -4,6 +4,7 @@ __pycache__/
 4_app/build/
 4_app/function.zip
 *.pdf
+!ENTREGA.pdf
 .aws/
 *.pem
 .env
