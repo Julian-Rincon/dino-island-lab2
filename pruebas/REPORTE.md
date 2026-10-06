@@ -2,7 +2,7 @@
 
 Corrida: 2026-10-06 contra https://zk6dst5eom6dhbjfcivxejcpn40iakbw.lambda-url.us-east-1.on.aws
 
-**58 de 59 pruebas pasan**, 1 pendiente(s). Duración total: 392 s.
+**59 de 59 pruebas pasan.** Duración total: 392 s.
 
 
 ## §2 y §7 Generador de nombres
@@ -32,7 +32,7 @@ Corrida: 2026-10-06 contra https://zk6dst5eom6dhbjfcivxejcpn40iakbw.lambda-url.u
 | `test_ollama_responde_con_modelo_registrado` | ✔ | 0.5 |
 | `test_identidad_seleccionado_completa_y_coherente` | ✔ | 0.0 |
 | `test_prompt_da_ejemplos_de_sufijos` | ✔ | 0.0 |
-| `test_verificacion_ejecutada_desde_el_notebook` | ⏸ pendiente | 0.0 |
+| `test_verificacion_ejecutada_desde_el_notebook` | ✔ | 0.0 |
 
 ## §4 Imagen
 
@@ -95,6 +95,6 @@ Corrida: 2026-10-06 contra https://zk6dst5eom6dhbjfcivxejcpn40iakbw.lambda-url.u
 | `test_sin_archivos_sensibles` | ✔ | 0.0 |
 
 
-**Pendiente:** `identidad_ollama.ipynb` debe ejecutarse una vez desde Jupyter del notebook `ollama` (la guía pide comprobar *desde el notebook* que el modelo responde) y guardarse en el repo con sus salidas.
+`identidad_ollama.ipynb` se ejecutó desde el notebook `ollama` (Ollama 0.40.0, gemma4:e2b `b37049369adf`).
 
 Capturas del navegador: `capturas/1_inicio_limedsaurus.png`, `capturas/2_chat.png`, `capturas/3_nuevo_dinosaurio.png`.
