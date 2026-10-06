@@ -11,7 +11,7 @@ Modelo de caracteres (GRU) → Nombre → Ollama (SageMaker) → Identidad → a
 - Julián Rincón
 - Andrés Castro
 - Juan Hurtado
-- Miguel Flechas
+- Miguel Flechas 
 - Paula Caballero
 
 **Sitio:** https://zk6dst5eom6dhbjfcivxejcpn40iakbw.lambda-url.us-east-1.on.aws/
