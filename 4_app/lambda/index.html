@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Isla de los Dinosaurios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --salvia: #E3E8DC;      /* fondo: papel de herbario */
+    --tinta: #1D2B24;       /* texto: tinta verde musgo */
+    --ambar: #94540A;       /* acento: resina */
+    --ambar-suave: #F1DFC0;
+    --piedra: #535C4D;      /* texto secundario */
+    --linea: #C3CBBA;
+    --oxido: #8C3B2A;       /* errores */
+    --hoja: #F7F8F3;        /* superficies */
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--salvia); color: var(--tinta);
+    font: 17px/1.55 "Atkinson Hyperlegible", system-ui, sans-serif;
+  }
+  button, input { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--ambar); outline-offset: 2px; }
+
+  .marco { max-width: 1240px; margin: 0 auto; padding: 28px 24px 48px; }
+  header.barra { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+  .isla { font-family: "Young Serif", Georgia, serif; font-size: 1.15rem; }
+  .isla small { display: block; font-family: "Atkinson Hyperlegible", sans-serif; font-size: .85rem; color: var(--piedra); }
+
+  .boton {
+    border: 2px solid var(--tinta); background: var(--tinta); color: var(--hoja);
+    padding: 10px 20px; border-radius: 999px; cursor: pointer; font-weight: 700;
+  }
+  .boton:hover { background: var(--ambar); border-color: var(--ambar); }
+  .boton[disabled] { opacity: .5; cursor: progress; }
+
+  main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+
+  /* ---- Ficha del espécimen ---- */
+  .ficha { background: var(--hoja); border: 1px solid var(--linea); border-radius: 6px; padding: 28px; }
+  .nombre {
+    font-family: "Young Serif", Georgia, serif; font-weight: 400;
+    font-size: clamp(2.6rem, 6.2vw, 5rem); line-height: .95; letter-spacing: -.02em;
+    margin: 0 0 6px; overflow-wrap: anywhere;
+  }
+  .significado { font-style: italic; color: var(--piedra); margin: 0 0 22px; max-width: 60ch; }
+  .lamina { display: grid; grid-template-columns: 260px 1fr; gap: 24px; }
+  .foto {
+    width: 260px; aspect-ratio: 1; border-radius: 4px; background: var(--salvia);
+    display: grid; place-items: center; overflow: hidden; border: 1px solid var(--linea);
+  }
+  .foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .foto p { color: var(--piedra); text-align: center; padding: 16px; margin: 0; font-size: .95rem; }
+  .descripcion { margin: 0; max-width: 62ch; }
+  dl.rasgos { display: grid; grid-template-columns: max-content 1fr; gap: 8px 18px; margin: 24px 0 0; }
+  dl.rasgos dt { color: var(--piedra); }
+  dl.rasgos dd { margin: 0; }
+
+  /* Flujo: la secuencia real del pipeline */
+  ol.flujo { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0 0 22px; font-size: .9rem; }
+  ol.flujo li { padding: 4px 12px; border-radius: 999px; border: 1px solid var(--linea); color: var(--piedra); }
+  ol.flujo li.activo { border-color: var(--ambar); color: var(--ambar); font-weight: 700; }
+  ol.flujo li.hecho { background: var(--tinta); border-color: var(--tinta); color: var(--hoja); }
+
+  details.modelo { margin-top: 26px; border-top: 1px solid var(--linea); padding-top: 14px; font-size: .92rem; }
+  details.modelo summary { cursor: pointer; font-weight: 700; }
+  details.modelo dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 10px 0 0; }
+  details.modelo dt { color: var(--piedra); }
+  details.modelo dd { margin: 0; }
+
+  /* ---- Chat ---- */
+  .chat { background: var(--tinta); color: var(--hoja); border-radius: 6px; display: flex; flex-direction: column; height: min(82vh, 760px); position: sticky; top: 16px; }
+  .chat h2 { font-family: "Young Serif", Georgia, serif; font-weight: 400; font-size: 1.35rem; margin: 0; padding: 20px 22px 12px; }
+  .mensajes { flex: 1; overflow-y: auto; padding: 4px 22px 16px; display: flex; flex-direction: column; gap: 14px; }
+  .msg { max-width: 88%; padding: 10px 14px; border-radius: 14px; white-space: pre-wrap; }
+  .msg.dino { background: #2C3D34; border-bottom-left-radius: 4px; align-self: flex-start; }
+  .msg.yo { background: var(--ambar-suave); color: var(--tinta); border-bottom-right-radius: 4px; align-self: flex-end; }
+  .msg img { display: block; width: 220px; max-width: 100%; border-radius: 8px; margin-bottom: 8px; }
+  .msg.pensando { color: #A9B6AC; font-style: italic; background: none; padding-left: 0; }
+  .vacio { color: #A9B6AC; margin: auto; text-align: center; max-width: 30ch; }
+  form.escribir { display: flex; gap: 8px; padding: 14px; border-top: 1px solid #34463C; }
+  form.escribir input { flex: 1; min-width: 0; border-radius: 999px; border: 0; padding: 10px 16px; background: var(--hoja); color: var(--tinta); }
+  form.escribir .boton { background: var(--ambar); border-color: var(--ambar); }
+  form.escribir .boton:hover { background: var(--hoja); border-color: var(--hoja); color: var(--tinta); }
+  .sugerencias { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 14px 12px; }
+  .sugerencias button { background: none; border: 1px solid #4A5E52; color: #CFD8D0; border-radius: 999px; padding: 3px 12px; font-size: .85rem; cursor: pointer; }
+  .sugerencias button:hover { border-color: var(--ambar-suave); color: var(--hoja); }
+
+  .error { color: var(--oxido); background: #F6E3DE; border-radius: 4px; padding: 10px 14px; margin: 0 0 18px; }
+  .esqueleto { background: linear-gradient(90deg, var(--salvia), var(--hoja), var(--salvia)); background-size: 200% 100%; animation: brillo 1.6s linear infinite; border-radius: 4px; height: 1em; margin: 6px 0; }
+  @keyframes brillo { to { background-position: -200% 0; } }
+  @media (prefers-reduced-motion: reduce) { .esqueleto { animation: none; } }
+
+  @media (max-width: 900px) {
+    main { grid-template-columns: 1fr; }
+    .chat { position: static; height: 70vh; }
+  }
+  @media (max-width: 560px) {
+    .lamina { grid-template-columns: 1fr; }
+    .foto { width: 100%; }
+    .ficha { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="marco">
+  <header class="barra">
+    <div class="isla">Isla de los Dinosaurios<small>Especies nuevas, nombradas por una red recurrente</small></div>
+    <button class="boton" id="nuevo">Nuevo dinosaurio</button>
+  </header>
+
+  <main>
+    <article class="ficha" aria-live="polite">
+      <ol class="flujo" id="flujo" aria-label="Etapas de creación">
+        <li data-etapa="nombre">Nombre</li>
+        <li data-etapa="identidad">Identidad</li>
+        <li data-etapa="imagen">Imagen</li>
+        <li data-etapa="chat">Chat</li>
+      </ol>
+      <div id="error" class="error" hidden></div>
+      <h1 class="nombre" id="nombre">…</h1>
+      <p class="significado" id="significado"></p>
+      <div class="lamina">
+        <div class="foto" id="foto"><p>La imagen aparece cuando termina la descripción.</p></div>
+        <div>
+          <p class="descripcion" id="descripcion"></p>
+        </div>
+      </div>
+      <dl class="rasgos" id="rasgos"></dl>
+      <details class="modelo">
+        <summary>Cómo se creó este dinosaurio</summary>
+        <dl id="modelo"></dl>
+      </details>
+    </article>
+
+    <section class="chat" aria-label="Chat con el dinosaurio">
+      <h2 id="titulo-chat">Habla con el dinosaurio</h2>
+      <div class="mensajes" id="mensajes"><p class="vacio">El chat se abre cuando el dinosaurio tiene nombre, descripción e imagen.</p></div>
+      <div class="sugerencias" id="sugerencias">
+        <button type="button">¿Qué comes?</button>
+        <button type="button">Descríbete</button>
+        <button type="button">¿Dónde vives?</button>
+        <button type="button">¿Tienes enemigos?</button>
+      </div>
+      <form class="escribir" id="form">
+        <input id="entrada" autocomplete="off" placeholder="Pregúntale algo…" aria-label="Mensaje" disabled>
+        <button class="boton" id="enviar" disabled>Enviar</button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const ETIQUETAS = {
+  periodo: "Periodo", tamano: "Tamaño", apariencia: "Apariencia", habitat: "Hábitat",
+  alimentacion: "Alimentación", comportamiento: "Comportamiento", rasgo_distintivo: "Rasgo distintivo",
+};
+let dino = null, historial = [], ocupado = false;
+
+async function api(ruta, body) {
+  const r = await fetch(ruta, body === undefined ? {} : {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
+  });
+  const data = await r.json().catch(() => ({ error: `respuesta inválida (${r.status})` }));
+  if (!r.ok) throw new Error(data.error || `error ${r.status}`);
+  return data;
+}
+
+function etapa(nombre, estado) {
+  const orden = ["nombre", "identidad", "imagen", "chat"];
+  const i = orden.indexOf(nombre);
+  document.querySelectorAll("#flujo li").forEach((li, j) => {
+    li.className = j < i || (j === i && estado === "hecho") ? "hecho" : j === i ? "activo" : "";
+  });
+}
+
+function mostrarError(msg) {
+  $("error").hidden = !msg;
+  $("error").textContent = msg ? `${msg}. Vuelve a intentarlo con “Nuevo dinosaurio”; si persiste, el notebook de SageMaker puede estar apagado.` : "";
+}
+
+function esqueleto(n) { return Array.from({ length: n }, () => '<div class="esqueleto"></div>').join(""); }
+
+function pintarModelo(m, extra = {}) {
+  const filas = {
+    "Red de nombres": m.arquitectura, "Configuración": m.configuracion,
+    "Parámetros": m.parametros?.toLocaleString("es-CO"), "Pérdida de validación": m.val_loss,
+    "Entrenada con": m.dataset, "Muestreo": m.muestreo, ...extra,
+  };
+  $("modelo").innerHTML = Object.entries(filas).filter(([, v]) => v !== undefined && v !== null)
+    .map(([k, v]) => `<dt>${k}</dt><dd>${String(v)}</dd>`).join("");
+}
+
+function pintarIdentidad(d) {
+  const ide = d.identidad;
+  $("significado").textContent = ide.significado_nombre;
+  $("descripcion").textContent = ide.descripcion;
+  $("rasgos").innerHTML = Object.entries(ETIQUETAS)
+    .map(([k, et]) => `<dt>${et}</dt><dd></dd>`).join("");
+  $("rasgos").querySelectorAll("dd").forEach((dd, i) => { dd.textContent = ide[Object.keys(ETIQUETAS)[i]]; });
+}
+
+function pintarImagen(url) {
+  $("foto").innerHTML = url ? `<img src="${url}" alt="Ilustración de ${dino.nombre}">` : '<p>Generando la imagen…</p>';
+}
+
+function chatListo(listo) {
+  $("entrada").disabled = $("enviar").disabled = !listo;
+  document.querySelectorAll("#sugerencias button").forEach((b) => (b.disabled = !listo));
+}
+
+function burbuja(rol, texto, img) {
+  const vacio = $("mensajes").querySelector(".vacio");
+  if (vacio) vacio.remove();
+  const div = document.createElement("div");
+  div.className = `msg ${rol}`;
+  if (img) { const im = document.createElement("img"); im.src = img; im.alt = `Imagen de ${dino.nombre}`; div.append(im); }
+  div.append(document.createTextNode(texto));
+  $("mensajes").append(div);
+  $("mensajes").scrollTop = $("mensajes").scrollHeight;
+  return div;
+}
+
+async function conversar(texto) {
+  if (ocupado || !dino) return;
+  ocupado = true; chatListo(false);
+  if (texto) { historial.push({ role: "user", content: texto }); burbuja("yo", texto); }
+  const espera = burbuja("pensando", `${dino.nombre} está pensando…`);
+  try {
+    const r = await api("/api/chat", { id: dino.id, mensajes: historial });
+    espera.remove();
+    if (r.presentacion) historial.push({ role: "user", content: "Preséntate: ¿quién eres y cómo eres?" });
+    historial.push({ role: "assistant", content: r.respuesta });
+    burbuja("dino", r.respuesta, r.imagen_url);
+  } catch (e) {
+    espera.textContent = `No llegó la respuesta (${e.message}). Escribe de nuevo.`;
+    if (texto) historial.pop();
+  }
+  ocupado = false; chatListo(true); $("entrada").focus();
+}
+
+function abrirChat() {
+  historial = [];
+  $("mensajes").innerHTML = "";
+  $("titulo-chat").textContent = `Habla con ${dino.nombre}`;
+  etapa("chat", "hecho");
+  conversar(null);              // el dinosaurio se presenta (con su imagen)
+}
+
+async function nuevoDinosaurio() {
+  $("nuevo").disabled = true; chatListo(false); mostrarError("");
+  $("mensajes").innerHTML = '<p class="vacio">El chat se abre cuando el dinosaurio tiene nombre, descripción e imagen.</p>';
+  $("significado").textContent = ""; $("rasgos").innerHTML = "";
+  $("foto").innerHTML = "<p>La imagen aparece cuando termina la descripción.</p>";
+  try {
+    etapa("nombre");
+    $("nombre").textContent = "…";
+    const n = await api("/api/nombre", {});
+    $("nombre").textContent = n.nombre;
+    pintarModelo(n.modelo);
+
+    etapa("identidad");
+    $("descripcion").innerHTML = esqueleto(4);
+    const ide = await api("/api/identidad", { nombre: n.nombre });
+    dino = { id: ide.id, nombre: ide.nombre, identidad: ide.identidad };
+    pintarIdentidad(dino);
+    pintarModelo(n.modelo, { "Identidad": `Ollama, ${ide.modelo_ollama} (${ide.segundos_identidad} s)` });
+
+    etapa("imagen");
+    pintarImagen(null);
+    const img = await api("/api/imagen", { id: dino.id });
+    dino.imagen = img.imagen_url;
+    pintarImagen(dino.imagen);
+    pintarModelo(n.modelo, {
+      "Identidad": `Ollama, ${ide.modelo_ollama} (${ide.segundos_identidad} s)`,
+      "Imagen": `${img.modelo_imagen} en ${img.dispositivo} (${img.segundos} s)`,
+    });
+    abrirChat();
+  } catch (e) {
+    mostrarError(e.message);
+  }
+  $("nuevo").disabled = false;
+}
+
+async function cargarActual() {
+  try {
+    const d = await api("/api/dino/actual");
+    dino = d;
+    $("nombre").textContent = d.nombre;
+    pintarIdentidad(d);
+    pintarImagen(d.imagen);
+    pintarModelo(d.modelo_nombres, {
+      "Identidad": `Ollama, ${d.modelo_ollama}`,
+      "Imagen": d.modelo_imagen ? `${d.modelo_imagen}` : undefined,
+    });
+    etapa("imagen", "hecho");
+    abrirChat();
+  } catch {
+    nuevoDinosaurio();
+  }
+}
+
+$("nuevo").addEventListener("click", nuevoDinosaurio);
+$("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const t = $("entrada").value.trim();
+  if (t) { $("entrada").value = ""; conversar(t); }
+});
+document.querySelectorAll("#sugerencias button").forEach((b) => b.addEventListener("click", () => conversar(b.textContent)));
+chatListo(false);
+cargarActual();
+</script>
+</body>
+</html>

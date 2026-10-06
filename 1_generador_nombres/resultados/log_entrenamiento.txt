@@ -1,0 +1,27 @@
+Nombres únicos tras normalizar: 1524
+Vocabulario: 29 tokens | T = 27
+Train: 1372  Val: 152
+[A_LSTM_1x128] época  10  train 1.5421  val 1.6304
+[A_LSTM_1x128] época  20  train 1.2570  val 1.6156
+[A_LSTM_1x128] época  30  train 1.0076  val 1.6949
+[A_LSTM_1x128] época  40  train 0.8333  val 1.8393
+[A_LSTM_1x128] época  50  train 0.7332  val 1.9560
+[A_LSTM_1x128] época  60  train 0.6756  val 2.0642
+[A_LSTM_1x128] mejor val 1.5982 en época 14 | 87613 parámetros
+[B_GRU_2x256] época  10  train 1.4436  val 1.5725
+[B_GRU_2x256] época  20  train 1.0543  val 1.6617
+[B_GRU_2x256] época  30  train 0.8464  val 1.8626
+[B_GRU_2x256] época  40  train 0.7594  val 1.9902
+[B_GRU_2x256] época  50  train 0.7280  val 2.0924
+[B_GRU_2x256] época  60  train 0.7046  val 2.1697
+[B_GRU_2x256] mejor val 1.5644 en época 11 | 638605 parámetros
+Configuración ganadora: B_GRU_2x256
+       estrategia  % nuevos (no en dataset)  % únicos  largo medio  % terminan en -saurus/-raptor/-don/-ops
+            T=0.5                      86.5      88.0         11.6                                     83.0
+            T=1.0                      98.0      99.5         11.6                                     67.5
+            T=1.5                     100.0     100.0         12.7                                     32.5
+  top-k=5 (T=1.0)                      95.5      99.0         12.0                                     74.5
+top-p=0.9 (T=1.0)                      97.0     100.0         11.8                                     70.5
+Diez nombres: ['Nexiniania', 'Limedsaurus', 'Mellodon', 'Chistropheus', 'Neotosaurus', 'Gitecosaurus', 'Ichanodon', 'Enchurosaurus', 'Brachyraptor', 'Paeuancousaurus']
+Seleccionado: Limedsaurus
+Listo -> /home/JulianRincon/Documentos/materias/NLP_clase/corte 2/laboratorio-dinosaurios/1_generador_nombres/resultados

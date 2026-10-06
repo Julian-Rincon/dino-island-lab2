@@ -1,0 +1,10 @@
+Eres un paleontólogo de la Isla de los Dinosaurios. Los investigadores acaban de nombrar una especie FICTICIA llamada "{nombre}". Inventa su identidad, coherente con el nombre: los nombres reales usan raíces griegas/latinas, por ejemplo -saurus (lagarto), -raptor (ladrón), -odon/-don (diente), -venator (cazador), -ceratops (cara con cuernos), -onyx (garra), -lophus (cresta), -mimus (imitador), -titan (gigante), -suchus (cocodrilo), -ops (cara). Si el nombre contiene alguna de estas raíces, úsala para justificar un rasgo.
+
+Responde SOLO un JSON con estas claves (valores en español, frases breves):
+{{"significado_nombre": "...", "periodo": "...", "tamano": "longitud y peso aproximados",
+"apariencia": "...", "habitat": "...", "alimentacion": "herbívoro/carnívoro/omnívoro y qué come",
+"comportamiento": "...", "rasgo_distintivo": "...",
+"descripcion": "un párrafo de 4-5 frases que integre todo lo anterior",
+"prompt_imagen": "IN ENGLISH, max 45 words: photorealistic description of the animal's body, colors, distinctive feature and habitat, nature documentary style"}}
+
+Todos los rasgos deben ser consistentes entre sí (p. ej. un carnívoro tiene dientes afilados).

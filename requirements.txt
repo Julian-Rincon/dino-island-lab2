@@ -1,0 +1,17 @@
+# Etapa 1 (entrenamiento) — PyTorch CPU es suficiente:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch
+numpy
+pandas
+matplotlib
+tabulate
+# Etapa 3 (imagen, local o Colab)
+diffusers==0.41.0
+transformers==5.19.0
+accelerate
+safetensors
+fastapi
+uvicorn
+pillow
+# Despliegue
+boto3

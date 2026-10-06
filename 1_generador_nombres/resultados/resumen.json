@@ -1,0 +1,145 @@
+{
+ "configuraciones": {
+  "A_LSTM_1x128": {
+   "nombre": "A_LSTM_1x128",
+   "celda": "LSTM",
+   "emb": 32,
+   "hidden": 128,
+   "capas": 1,
+   "dropout": 0.0,
+   "epocas": 60,
+   "lr": 0.003,
+   "batch": 64,
+   "funcion_perdida": "CrossEntropyLoss(ignore_index=<PAD>)",
+   "optimizador": "Adam(lr=0.003)",
+   "parametros": 87613,
+   "mejor_val_loss": 1.5982,
+   "mejor_epoca": 14,
+   "train_loss_final": 0.6756,
+   "val_loss_final": 2.0642,
+   "segundos": 11.0
+  },
+  "B_GRU_2x256": {
+   "nombre": "B_GRU_2x256",
+   "celda": "GRU",
+   "emb": 48,
+   "hidden": 256,
+   "capas": 2,
+   "dropout": 0.3,
+   "epocas": 60,
+   "lr": 0.002,
+   "batch": 64,
+   "funcion_perdida": "CrossEntropyLoss(ignore_index=<PAD>)",
+   "optimizador": "Adam(lr=0.002)",
+   "parametros": 638605,
+   "mejor_val_loss": 1.5644,
+   "mejor_epoca": 11,
+   "train_loss_final": 0.7046,
+   "val_loss_final": 2.1697,
+   "segundos": 74.8
+  }
+ },
+ "ganador": "B_GRU_2x256",
+ "muestreo": [
+  {
+   "estrategia": "T=0.5",
+   "% nuevos (no en dataset)": 86.5,
+   "% únicos": 88.0,
+   "largo medio": 11.6,
+   "% terminan en -saurus/-raptor/-don/-ops": 83.0
+  },
+  {
+   "estrategia": "T=1.0",
+   "% nuevos (no en dataset)": 98.0,
+   "% únicos": 99.5,
+   "largo medio": 11.6,
+   "% terminan en -saurus/-raptor/-don/-ops": 67.5
+  },
+  {
+   "estrategia": "T=1.5",
+   "% nuevos (no en dataset)": 100.0,
+   "% únicos": 100.0,
+   "largo medio": 12.7,
+   "% terminan en -saurus/-raptor/-don/-ops": 32.5
+  },
+  {
+   "estrategia": "top-k=5 (T=1.0)",
+   "% nuevos (no en dataset)": 95.5,
+   "% únicos": 99.0,
+   "largo medio": 12.0,
+   "% terminan en -saurus/-raptor/-don/-ops": 74.5
+  },
+  {
+   "estrategia": "top-p=0.9 (T=1.0)",
+   "% nuevos (no en dataset)": 97.0,
+   "% únicos": 100.0,
+   "largo medio": 11.8,
+   "% terminan en -saurus/-raptor/-don/-ops": 70.5
+  }
+ ],
+ "muestras_por_estrategia": {
+  "T=0.5": [
+   "auropasaurus",
+   "allevisaurus",
+   "amporaptor",
+   "maranosaurus",
+   "henesaurus",
+   "archaeophesaurus",
+   "dondynosaurus",
+   "alabitan"
+  ],
+  "T=1.0": [
+   "auriomanosaurus",
+   "brenterosaurus",
+   "dinophelesaurus",
+   "mochronexia",
+   "huashanosaurus",
+   "mongongxonis",
+   "laeoceratops",
+   "palsarosaurus"
+  ],
+  "T=1.5": [
+   "aachengia",
+   "plebirops",
+   "scagunolomimus",
+   "yonfwanis",
+   "umliromsaurus",
+   "cosshadrkvecatitansconnus",
+   "besburosaurus",
+   "saaurostedlosaurus"
+  ],
+  "top-k=5 (T=1.0)": [
+   "anotosaurus",
+   "pellerosaurus",
+   "angalicodon",
+   "pateratoceratops",
+   "ceracodon",
+   "pelosaurus",
+   "seinocephaleus",
+   "trechosaurus"
+  ],
+  "top-p=0.9 (T=1.0)": [
+   "hestasuchus",
+   "ilotocephalosaurus",
+   "nogentosaurus",
+   "thiasaurus",
+   "chingyuunsaurus",
+   "sinodon",
+   "giconyx",
+   "terostenus"
+  ]
+ },
+ "diez_nombres": [
+  "Nexiniania",
+  "Limedsaurus",
+  "Mellodon",
+  "Chistropheus",
+  "Neotosaurus",
+  "Gitecosaurus",
+  "Ichanodon",
+  "Enchurosaurus",
+  "Brachyraptor",
+  "Paeuancousaurus"
+ ],
+ "seleccionado": "Limedsaurus"
+}

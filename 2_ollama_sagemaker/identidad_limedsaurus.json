@@ -1,0 +1,15 @@
+{
+ "id": "limedsaurus-10553b",
+ "nombre": "Limedsaurus",
+ "modelo_ollama": "gemma4:e2b",
+ "significado_nombre": "Lagarto de la arcilla (o piedra)",
+ "periodo": "Jurásico Tardío",
+ "tamano": "Longitud de 15 metros; peso de 5 toneladas",
+ "apariencia": "Piel escamosa de color gris pizarra con placas óseas protectoras, y una cresta prominente en la cabeza.",
+ "habitat": "Llanuras pantanosas y zonas rocosas de alta humedad.",
+ "alimentacion": "Carnívoro; caza pequeños reptiles y mamíferos acuáticos.",
+ "comportamiento": "Actuación furtiva y depredadora, utilizando su crestas para intimidar a sus presas.",
+ "rasgo_distintivo": "Una cresta ósea prominente en la parte superior de la cabeza, que sirve como advertencia.",
+ "descripcion": "El Limedsaurus fue un depredador robusto del Jurásico tardío, adaptado a los ambientes húmedos y rocosos. Su cuerpo estaba cubierto de placas óseas que le proporcionaban protección contra los predadores. Poseía una cresta distintiva en la cabeza para intimidar a sus presas y dientes robustos para su dieta carnívora. Este saurio era un cazador sigiloso, moviéndose a través de los pantanos.",
+ "prompt_imagen": "Photorealistic depiction of a large, gray Limedsaurus with a prominent bony crest, stalking through a misty swamp habitat. Nature documentary style."
+}
